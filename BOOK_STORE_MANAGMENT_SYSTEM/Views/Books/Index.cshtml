@@ -1,0 +1,45 @@
+﻿@model List<BOOK_STORE_MANAGMENT_SYSTEM.Models.Book> //view expect a book object
+
+@{
+    Layout = "_Layout";
+}
+
+<h2 class="mb-3"> Books Inventory</h2>
+
+<a class="btn btn-primary mb-3" asp-action="Create"> Add New Book</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.Id</td>
+                <td>@b.Title</td>
+                <td>@b.Author</td>
+                <td>@b.Price</td>
+                <td>@b.Category</td>
+                <td>@b.Quantity</td>
+
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@b.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@b.Id"
+                       onclick="return confirm('Are you sure you want to delete this book?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

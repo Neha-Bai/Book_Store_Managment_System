@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BOOK_STORE_MANAGMENT_SYSTEM.Models.Book>
+@{
+    ViewData["Title"] = "Books for Customers";
+}
+<h2 class="mt-4">Available Books</h2>
+<form method="get" asp-action="CustomerBooks" class="mb-3">
+    <input type="text" name="search" class="form-control"
+           placeholder="Search books by title or author..."
+           value="@Context.Request.Query["search"]" />
+</form>
+
+<div class="text-end mb-3">
+    <a asp-action="Cart" class="btn btn-primary">
+        View Cart
+    </a>
+</div>
+
+<table class="table table-bordered mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>   
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Category</td>
+                <td>@book.Price</td>
+                <td>@book.Quantity</td>
+                <td>
+                    <a asp-action="Buy" asp-route-id="@book.Id" class="btn btn-success btn-sm">
+                        Buy
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

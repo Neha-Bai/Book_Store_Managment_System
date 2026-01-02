@@ -1,0 +1,49 @@
+﻿@model List<BOOK_STORE_MANAGMENT_SYSTEM.Models.Cart> 
+
+<h2>Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <p>Your cart is empty.</p>
+    <a asp-action="CustomerBooks" class="btn btn-secondary">Back to Books</a>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Book.Title</td>
+                    <td>@item.Book.Price</td>
+                    <td>
+                        <form asp-action="UpdateCart" method="post" class="d-flex">
+                            <input type="hidden" name="CartId" value="@item.Id" />
+                            <input type="number" name="Qty" value="@item.Quantity" min="1" class="form-control" style="width:80px" />
+                            <button type="submit" class="btn btn-sm btn-success ms-2">Update</button>
+                        </form>
+                    </td>
+                    <td>@(item.Book.Price* item.Quantity)</td>
+                    <td>
+                        <a asp-action="DeleteFromCart" asp-route-id="@item.Id"
+                           class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="CustomerBooks" class="btn btn-secondary">Back to Books</a>
+    <a asp-action="Checkout" class="btn btn-warning">Proceed to Checkout</a>
+}

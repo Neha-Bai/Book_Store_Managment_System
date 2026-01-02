@@ -1,0 +1,33 @@
+﻿@model BOOK_STORE_MANAGMENT_SYSTEM.Models.Bill
+
+<h2 style="color:green;"> Order Confirmed!</h2>
+
+<p>Thank you for your purchase, @Model.CustomerName!</p>
+
+<h4>Order Details</h4>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.BookName</td>
+                <td>@item.BookPrice</td>
+                <td>@item.Quantity</td>
+                <td>@item.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Grand Total: <b>@Model.GrandTotal</b></h3>
+
+<a asp-action="CustomerBooks" class="btn btn-primary mt-3">Back to Books</a>

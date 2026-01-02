@@ -1,0 +1,44 @@
+﻿@model BOOK_STORE_MANAGMENT_SYSTEM.Models.Bill
+
+<h2>Checkout</h2>
+
+<p><strong>Name:</strong> @Model.CustomerName</p>
+<p><strong>Date:</strong> @Model.BillingDate</p>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Book</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.BookName</td>
+                <td>@item.BookPrice</td>
+                <td>@item.Quantity</td>
+                <td>@(item.BookPrice* item.Quantity)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Grand Total: @Model.Items.Sum(i => i.BookPrice * i.Quantity)</h3>
+
+<form asp-action="ConfirmCheckout" method="post">
+    @foreach (var item in Model.Items)
+    {
+        <input type="hidden" name="Items[@Model.Items.IndexOf(item)].BookName" value="@item.BookName" />
+        <input type="hidden" name="Items[@Model.Items.IndexOf(item)].BookPrice" value="@item.BookPrice" />
+        <input type="hidden" name="Items[@Model.Items.IndexOf(item)].Quantity" value="@item.Quantity" />
+    }
+
+    <input type="hidden" name="CustomerName" value="@Model.CustomerName" />
+
+    <button type="submit" class="btn btn-success">Confirm & Pay</button>
+    <a asp-action="Cart" class="btn btn-secondary">Back to Cart</a>
+</form>

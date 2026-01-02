@@ -1,0 +1,17 @@
+﻿@model BOOK_STORE_MANAGMENT_SYSTEM.Models.Book
+
+<h2>Buy Book</h2>
+
+<form asp-action="AddToCart">
+    <input type="hidden" name="BookId" value="@Model.Id" />
+
+    <p><b>Title:</b> @Model.Title</p>
+    <p><b>Price:</b> @Model.Price</p>
+
+    <label>Quantity</label>
+    <input type="number" name="Qty" value="1" min="1" max="@Model.Quantity" class="form-control" />
+
+    <br />
+
+    <button class="btn btn-primary">Add To Cart</button>
+</form>
